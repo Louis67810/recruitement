@@ -1,14 +1,4 @@
 {
-  "outputDirectory": ".",
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/", "destination": "/outputs/ruff-recrutement/index.html" },
-    { "source": "/admin", "destination": "/outputs/ruff-recrutement/admin.html" },
-    { "source": "/styles.css", "destination": "/outputs/ruff-recrutement/styles.css" },
-    { "source": "/app.js", "destination": "/outputs/ruff-recrutement/app.js" },
-    { "source": "/admin.css", "destination": "/outputs/ruff-recrutement/admin.css" },
-    { "source": "/admin.js", "destination": "/outputs/ruff-recrutement/admin.js" },
-    { "source": "/config.js", "destination": "/outputs/ruff-recrutement/config.js" },
-    { "source": "/assets/:path*", "destination": "/outputs/ruff-recrutement/assets/:path*" }
-  ]
+  "outputDirectory": "outputs/ruff-recrutement",
+  "cleanUrls": true
 }
