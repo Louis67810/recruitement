@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RUFF — Talent Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <img src="assets/ruff-logo.webp" alt="RUFF" class="admin-logo" />
+      <nav>
+        <button class="nav-item active" data-view="review"><span>◇</span> Review</button>
+        <button class="nav-item" data-view="talent"><span>◎</span> Talent pool</button>
+        <button class="nav-item" data-view="analytics"><span>↗</span> Analytique</button>
+      </nav>
+      <a class="form-link" href="index.html">Open application form ↗</a>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-header">
+        <div>
+          <p class="kicker">Talent workspace</p>
+          <h1 id="viewTitle">Review applications</h1>
+        </div>
+        <div class="admin-profile"><span>LA</span><div><strong>Admin</strong><small>Ruff.agency</small></div><button id="logoutButton" class="logout-button">Log out</button></div>
+      </header>
+
+      <section class="stats" aria-label="Application statistics">
+        <article><span>Candidatures</span><strong id="totalMetric">0</strong><small>Depuis le lancement</small></article>
+        <article><span>Taux de complétion</span><strong id="completionMetric">0%</strong><small>Ouvertures → envois</small></article>
+        <article><span>Taux d’ouverture des e-mails</span><strong id="openMetric">—</strong><small>Nécessite la connexion e-mail</small></article>
+        <article><span>En attente d’examen</span><strong id="pendingMetric">0</strong><small>Décision nécessaire</small></article>
+      </section>
+
+      <section id="reviewView" class="view active">
+        <div class="review-layout">
+          <div class="deck-column">
+            <div class="section-heading"><div><p class="kicker">Quick review</p><h2>Candidate cards</h2></div><span id="deckCounter"></span></div>
+            <div class="deck" id="deck"></div>
+            <div class="decision-actions">
+              <button class="decision reject" id="rejectButton" aria-label="Reject candidate">×</button>
+              <span><kbd>←</kbd> Reject</span>
+              <span><kbd>→</kbd> Accept</span>
+              <button class="decision accept" id="acceptButton" aria-label="Accept candidate">✓</button>
+            </div>
+          </div>
+          <aside class="activity-panel">
+            <div class="section-heading"><div><p class="kicker">Live log</p><h2>Activity</h2></div></div>
+            <div id="activityList" class="activity-list"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="talentView" class="view">
+        <div class="section-heading"><div><p class="kicker">Database</p><h2>Potential providers</h2></div><input id="searchInput" class="search" placeholder="Search a candidate…" /></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Candidate</th><th>Role</th><th>Location</th><th>Rates</th><th>Status</th><th>Submitted</th></tr></thead>
+            <tbody id="talentTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="analyticsView" class="view">
+        <div class="analytics-grid">
+          <article class="chart-card"><p class="kicker">Entonnoir</p><h2>Parcours de candidature</h2><div id="funnelChart"></div></article>
+          <article class="chart-card"><p class="kicker">Postes</p><h2>Répartition des candidats</h2><div id="roleChart"></div></article>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="rejectDialog">
+      <form method="dialog" class="reject-modal">
+        <button class="close-modal" value="cancel" aria-label="Close">×</button>
+        <p class="kicker">Reject application</p>
+        <h2>Send a respectful response</h2>
+        <p id="rejectCandidateText"></p>
+        <label>Reason shown in the email <span>optional</span></label>
+        <textarea id="rejectReason" placeholder="Thank them and add a short, useful explanation…"></textarea>
+        <p class="email-preview">An automatic rejection email will be queued after confirmation.</p>
+        <button type="button" class="hold-confirm" id="holdReject"><span class="hold-progress"></span><b>Hold to confirm rejection</b></button>
+      </form>
+    </dialog>
+
+    <div class="auth-screen" id="authScreen">
+      <form class="auth-card" id="authForm">
+        <img src="assets/ruff-logo.webp" alt="RUFF" />
+        <p class="kicker">Secure admin access</p>
+        <h2>Sign in to Talent Admin</h2>
+        <p>Enter your authorized email address. We’ll send you a secure sign-in link.</p>
+        <input id="adminEmail" type="email" value="louisstaub67@gmail.com" required />
+        <button type="submit">Send magic link</button>
+        <small id="authMessage"></small>
+      </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.1/dist/umd/supabase.min.js"></script>
+    <script src="config.js"></script>
+    <script src="admin.js"></script>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#80cfe7" />
+    <title>RUFF — Application</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <div class="sky-wash" aria-hidden="true"></div>
+
+      <header class="brand">
+        <img src="assets/ruff-logo.webp" alt="RUFF" />
+      </header>
+
+      <section class="quiz" aria-labelledby="question-title">
+        <div class="progress-row">
+          <button class="arrow" id="backButton" type="button" aria-label="Previous question">‹</button>
+          <div class="progress-track" role="progressbar" aria-label="Application progress" aria-valuemin="1" aria-valuemax="9" aria-valuenow="1">
+            <div class="progress-fill"></div>
+          </div>
+          <button class="arrow" id="forwardButton" type="button" aria-label="Next question">›</button>
+        </div>
+
+        <div class="glass-shell">
+          <article class="card" id="quizCard">
+            <div class="card-top">
+              <span class="step-count"><strong id="currentStep">1</strong> / <span id="totalSteps">9</span></span>
+            </div>
+
+            <form id="applicationForm" novalidate>
+              <div class="question-content" id="questionContent">
+                <h1 id="question-title">What’s your name?</h1>
+                <p class="hint" id="questionHint">Enter your first and last name.</p>
+                <div id="fieldContainer"></div>
+                <p class="error-message" id="errorMessage" role="alert"></p>
+              </div>
+
+              <button class="next-button" id="nextButton" type="submit">
+                <span>Next</span>
+                <span class="button-chevron" aria-hidden="true"><span>›</span></span>
+              </button>
+            </form>
+          </article>
+        </div>
+      </section>
+
+      <p class="privacy-note">
+        Your answers remain confidential and are only used to review your application.
+      </p>
+    </main>
+
+    <div class="success-screen" id="successScreen" hidden>
+      <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+      <div class="success-card">
+        <div class="success-icon">✓</div>
+        <p class="success-label">Application complete</p>
+        <h2>Thank you — that’s everything!</h2>
+        <p>We’ve received your application and our team is going to review it carefully. You’ll hear back from us within <strong>3-4 days</strong>.</p>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.1/dist/umd/supabase.min.js"></script>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

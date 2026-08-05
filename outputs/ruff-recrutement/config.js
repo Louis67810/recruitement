@@ -1,0 +1,4 @@
+window.RUFF_CONFIG = {
+  supabaseUrl: "https://vcbdwewkevqiukgbakjr.supabase.co",
+  supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZjYmR3ZXdrZXZxaXVrZ2Jha2pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU5MzY4MDQsImV4cCI6MjEwMTUxMjgwNH0.AjuuPbz0LFna9hL0iza2OQ1DsbJOU4qR2mcZgRcXpI0"
+};
