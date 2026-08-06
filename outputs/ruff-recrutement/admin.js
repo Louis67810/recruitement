@@ -58,6 +58,7 @@ function rowToApplication(row) {
     rejectionReason: row.rejection_reason,
     answers: {
       name: row.full_name,
+      email: row.email,
       age: String(row.age),
       location: row.location,
       whatsapp: row.whatsapp,
@@ -103,6 +104,7 @@ function cardMarkup(app) {
   return `<article class="candidate-card" data-id="${app.id}">
     <div class="candidate-top"><div class="avatar">${initials(a.name)}</div><div><h3>${a.name || "Unnamed candidate"}</h3><p>${a.role || "Designer"} · ${a.location || "Location unknown"}</p></div><span class="status">${app.status}</span></div>
     <div class="candidate-details">
+      <div class="detail"><span>Email</span><strong>${a.email || "—"}</strong></div>
       <div class="detail"><span>Age</span><strong>${a.age || "—"}</strong></div>
       <div class="detail"><span>WhatsApp</span><strong>${a.whatsapp || "—"}</strong></div>
       <div class="detail"><span>Languages</span><strong>${a.languages || "—"}</strong></div>
@@ -125,7 +127,7 @@ function renderDeck() {
 function renderTable(filter = "") {
   const rows = applications.filter(app => `${app.answers.name} ${app.answers.role} ${app.answers.location}`.toLowerCase().includes(filter.toLowerCase()));
   document.querySelector("#talentTable").innerHTML = rows.map(app => `<tr>
-    <td><strong>${app.answers.name || "Unnamed"}</strong><small>${app.answers.whatsapp || ""}</small></td>
+    <td><strong>${app.answers.name || "Unnamed"}</strong><small>${app.answers.email || app.answers.whatsapp || ""}</small></td>
     <td>${app.answers.role || "—"}</td><td>${app.answers.location || "—"}</td><td>${rateSummary(app.answers)}</td>
     <td><span class="pill ${app.status}">${app.status}</span></td><td>${new Date(app.submittedAt).toLocaleDateString()}</td>
   </tr>`).join("") || `<tr><td colspan="6">No matching candidate.</td></tr>`;
@@ -161,6 +163,18 @@ async function recordDecision(id, status, reason = "") {
   app.emailStatus = status === "rejected" ? "queued" : "not_sent";
   activities.unshift({ at: new Date().toISOString(), text: `${app.answers.name || "Candidate"} ${status}${status === "rejected" ? " · email queued" : ""}` });
   activeId = null;
+  if (status === "rejected") {
+    const { error: emailError } = await supabaseClient.functions.invoke("send-rejection-email", {
+      body: { applicationId: id }
+    });
+    if (emailError) {
+      app.emailStatus = "failed";
+      activities.unshift({ at: new Date().toISOString(), text: `Rejection saved, but email failed for ${app.answers.name || "candidate"}` });
+      throw new Error(`Rejection saved, but the email could not be sent: ${emailError.message}`);
+    }
+    app.emailStatus = "sent";
+    activities.unshift({ at: new Date().toISOString(), text: `Rejection email sent to ${app.answers.email}` });
+  }
 }
 
 function animateDecision(direction, callback) {
