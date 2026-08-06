@@ -26,6 +26,7 @@ const slides = [
     hint: "Tell us where you’re based and how we can reach you.",
     fields: [
       { key: "name", label: "Full name", type: "text", placeholder: "Alex Martin", autocomplete: "name" },
+      { key: "email", label: "Email address", type: "email", placeholder: "alex@email.com", autocomplete: "email" },
       { key: "age", label: "How old are you?", type: "number", placeholder: "Age" },
       { key: "location", label: "Where do you live?", type: "text", placeholder: "Ukraine", autocomplete: "country-name" },
       { key: "whatsapp", label: "WhatsApp number", type: "tel", placeholder: "+33 6 12 34 56 78", autocomplete: "tel" },
@@ -249,6 +250,7 @@ function numericRate(value) {
 async function saveApplication() {
   const payload = {
     full_name: state.answers.name,
+    email: state.answers.email,
     age: Number(state.answers.age),
     location: state.answers.location,
     whatsapp: state.answers.whatsapp,
