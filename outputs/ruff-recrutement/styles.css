@@ -9,13 +9,21 @@
 
 * { box-sizing: border-box; }
 
-html, body { min-height: 100%; }
+html {
+  min-height: 100%;
+  background: #72c8e5 url("assets/ruff-background.webp") center 46% / cover no-repeat fixed;
+  overscroll-behavior-y: none;
+}
 
 body {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
   color: var(--ink);
   font-family: "DM Sans", system-ui, sans-serif;
   background: #72c8e5 url("assets/ruff-background.webp") center 46% / cover no-repeat fixed;
+  overscroll-behavior-y: none;
 }
 
 button, input, textarea, select { font: inherit; }
@@ -24,6 +32,7 @@ button, input, textarea, select { font: inherit; }
   position: relative;
   isolation: isolate;
   min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -478,8 +487,8 @@ h1 {
 .success-card button { min-width: 200px; padding: 0 25px; margin-top: 15px; }
 
 @media (max-width: 620px) {
-  body { background-attachment: scroll; }
-  .page { min-height: 100svh; padding: 18px 10px 15px; }
+  html, body { background-attachment: fixed; }
+  .page { min-height: 100svh; min-height: 100dvh; padding: 18px 10px 15px; }
   .brand { height: 58px; }
   .quiz { width: 100%; margin: 18px auto; }
   .progress-row {
