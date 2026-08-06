@@ -3,7 +3,7 @@ const slides = [
     kind: "fields",
     intro: true,
     title: "Join a design agency and get paid $2k–$5k/month",
-    introCopy: "Hi everyone,<br><br>At Ruff.agency, we're hiring a brand designer and a website designer for a long-term freelance or full-time position.",
+    introCopy: "Hi everyone,<br><br>At RUFF.agency, we're hiring a brand designer and a website designer for a long-term freelance or full-time position.",
     hint: "",
     button: "Apply now",
     roles: [

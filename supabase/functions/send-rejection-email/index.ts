@@ -34,10 +34,13 @@ Deno.serve(async (request) => {
   const anonKey = Deno.env.get("SUPABASE_ANON_KEY") ?? "";
   const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
   const resendApiKey = Deno.env.get("RESEND_API_KEY");
-  const from = Deno.env.get("RESEND_FROM") ?? Deno.env.get("RESEND_FORM");
+  const configuredFrom = Deno.env.get("RESEND_FROM") ?? Deno.env.get("RESEND_FORM");
   const adminEmail = (Deno.env.get("ADMIN_EMAIL") ?? "louisstaub67@gmail.com").toLowerCase();
 
-  if (!resendApiKey || !from) return json({ error: "Email service is not configured" }, 503);
+  if (!resendApiKey || !configuredFrom) return json({ error: "Email service is not configured" }, 503);
+  const from = configuredFrom.includes("<")
+    ? configuredFrom.replace(/^[^<]+(?=<)/, "RUFF Recruitment ")
+    : `RUFF Recruitment <${configuredFrom}>`;
 
   const userClient = createClient(supabaseUrl, anonKey, {
     global: { headers: { Authorization: authorization } },
